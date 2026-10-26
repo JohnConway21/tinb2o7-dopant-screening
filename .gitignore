@@ -1,0 +1,4 @@
+pseudo/*.UPF
+tmp/
+*.out
+__pycache__/
