@@ -101,6 +101,29 @@ the supercell's 4 k-points unfold to.
   0.80 eV apart. The 2x2x2 mesh is far from converged in total energy. Polaron energies are
   same-mesh differences so much of this should cancel, but it needs a convergence test.
 
-## k-point convergence test (running)
+## k-point convergence test (finished 2026-11-15)
 scf_pristine_neutral_k3.in and _k4.in: relaxed neutral pristine 30-atom cell, SCF, K_POINTS 3 3 3
 and 4 4 4. Everything else identical to the unfolding check. Run in sequence.
+
+| Mesh | k-points | E (Ry) | Change from previous |
+|---|---|---|---|
+| 2x2x2 | 8 | -3431.53114476 | n/a |
+| 3x3x3 | 14 | -3431.47210776 | +0.803 eV |
+| 4x4x4 | 36 | -3431.46667798 | +73.9 meV (2.46 meV/atom) |
+| 12 unfolded supercell points | 12 | -3431.47207222 | 0.5 meV from 3x3x3 |
+
+Total energy is not yet converged at 4x4x4 (still moving 2.5 meV/atom). The supercell 2x1x2 mesh is
+equivalent to about the 3x3x3 level, not better. Not yet tested: convergence of energy DIFFERENCES
+(charged vs neutral, frozen vs relaxed), which is what the polaron energy uses.
+
+## Localization gate: scf_pristine_e_sc_spin.in (finished 2026-11-16)
+90-atom pristine supercell at the relaxed neutral geometry, tot_charge = -1, nspin = 2,
+tot_magnetization = 1, starting_magnetization 0.1 on all Ti and Nb (no site favoured), 2x1x2 mesh.
+- 721 electrons (361 up, 360 down). Converged in 40 iterations, JOB DONE, 6h52m wall.
+- E = -10293.74265555 Ry. Total magnetization 1.00, absolute 2.14 Bohr mag/cell.
+- NOT localized. Spin (Tr[ns] up-down) is spread evenly over the three periodic copies of two sites:
+  Ti (30-atom index 2) +0.25 each, Nb (30-atom index 9) +0.17 each; every other site < 0.06.
+  No site above 0.5. d-occupation change per site at most +0.06 vs the neutral supercell.
+- Per Dev's instruction, stopped here: no Ta or other dopant runs.
+- Note: this SCF is at the undistorted (frozen) geometry. A small polaron normally needs the lattice
+  to distort around it, so a delocalized result here does not rule out a polaron after relaxation.
