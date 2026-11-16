@@ -128,7 +128,11 @@ tot_magnetization = 1, starting_magnetization 0.1 on all Ti and Nb (no site favo
 - Note: this SCF is at the undistorted (frozen) geometry. A small polaron normally needs the lattice
   to distort around it, so a delocalized result here does not rule out a polaron after relaxation.
 
-## Seeded polaron relaxation: relax_pristine_e_sc_seed9.in (running, started 2026-11-16 06:16)
+## Seeded polaron relaxation: relax_pristine_e_sc_seed9.in (running; restarted 2026-11-16 13:05)
+First attempt (started 06:16) died silently at 11:14 during the first SCF (iteration 24, accuracy ~2e-6 Ry),
+one minute after the Claude app released its power assertion; no QE error, disk and memory fine.
+Partial output kept as relax_pristine_e_sc_seed9.out.killed. Relaunched with run_pw_launchd.sh (launchd
+job, independent of the terminal and the Claude app), identical input.
 Purpose: test whether a localized electron is stable once the lattice can relax. Built by
 make_sc_polaron_seed.py from the 90-atom neutral supercell:
 - supercell atom 9 (first copy of 30-atom site 9) relabeled Nb9, same pseudopotential and U
@@ -138,4 +142,4 @@ make_sc_polaron_seed.py from the 90-atom neutral supercell:
 Reading the result: if the electron stays on one site (> ~0.5 e) and the final energy is below the
 delocalized gate energy (-10293.74265555 Ry), a small polaron is stable and
 E_trap = E(gate, delocalized) - E(this, relaxed). If it spreads back out, no stable polaron at site 9.
-Expected finish: Nov 18-19.
+Expected finish: Nov 19.
