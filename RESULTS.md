@@ -143,3 +143,5 @@ Reading the result: if the electron stays on one site (> ~0.5 e) and the final e
 delocalized gate energy (-10293.74265555 Ry), a small polaron is stable and
 E_trap = E(gate, delocalized) - E(this, relaxed). If it spreads back out, no stable polaron at site 9.
 Expected finish: Nov 19.
+
+- Status 2026-11-17 14:19: still running (first BFGS step: 2 energies done). Battery about to run out; if the Mac dies the run must be restarted (rename the partial output to .killed first).
