@@ -145,3 +145,11 @@ E_trap = E(gate, delocalized) - E(this, relaxed). If it spreads back out, no sta
 Expected finish: Nov 19.
 
 - Status 2026-11-17 14:19: still running (first BFGS step: 2 energies done). Battery about to run out; if the Mac dies the run must be restarted (rename the partial output to .killed first).
+
+### Restart after battery shutdown (2026-11-17 16:15)
+relax_pristine_e_sc_seed9.out stopped at 14:26 when the Mac lost power. It completed 3 SCF energies
+(-10293.71600627, -10293.75316050, -10293.76707906 Ry; forces 0.315 then 0.162 Ry/Bohr), so the
+lattice is relaxing and the energy is falling. Already 0.33 eV below the delocalized gate energy
+(-10293.74265555 Ry); not a result until the relaxation converges.
+Restarted as relax_pristine_e_sc_seed9_r2.in (built by make_restart_from_last.py): same input, positions
+from the last ATOMIC_POSITIONS block printed in the old output, new prefix. BFGS history starts fresh.
