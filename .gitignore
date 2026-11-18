@@ -2,3 +2,4 @@ pseudo/*.UPF
 tmp/
 *.out
 __pycache__/
+.battery_guard_fired
