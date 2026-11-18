@@ -153,3 +153,16 @@ lattice is relaxing and the energy is falling. Already 0.33 eV below the delocal
 (-10293.74265555 Ry); not a result until the relaxation converges.
 Restarted as relax_pristine_e_sc_seed9_r2.in (built by make_restart_from_last.py): same input, positions
 from the last ATOMIC_POSITIONS block printed in the old output, new prefix. BFGS history starts fresh.
+
+### Status before second power-down (2026-11-18 12:10)
+relax_pristine_e_sc_seed9_r2 progress (forces in Ry/Bohr):
+
+| SCF | Energy (Ry) | Total force | vs gate (eV) |
+|---|---|---|---|
+| r2 #1 (= old #3 geometry) | -10293.76707905 | 0.0798 | -0.332 |
+| r2 #2 | -10293.77144996 | 0.0484 | -0.392 |
+
+Forces keep falling (0.315, 0.162, 0.080, 0.048 across all SCFs). Latest positions copied to
+seed9_r2_last_positions.txt. If the run dies, restart with
+`python3 make_restart_from_last.py relax_pristine_e_sc_seed9_r2 relax_pristine_e_sc_seed9_r3`
+then `./run_pw_launchd.sh relax_pristine_e_sc_seed9_r3`. Not a result until BFGS converges and localization is checked.
