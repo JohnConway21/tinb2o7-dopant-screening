@@ -166,3 +166,10 @@ Forces keep falling (0.315, 0.162, 0.080, 0.048 across all SCFs). Latest positio
 seed9_r2_last_positions.txt. If the run dies, restart with
 `python3 make_restart_from_last.py relax_pristine_e_sc_seed9_r2 relax_pristine_e_sc_seed9_r3`
 then `./run_pw_launchd.sh relax_pristine_e_sc_seed9_r3`. Not a result until BFGS converges and localization is checked.
+
+### Second power loss and restart (2026-11-19)
+Battery guard auto-saved at 4% (11:25, commit 17c80c9); Mac died ~11:46. r2 completed 5 SCFs:
+energies -10293.76707905, -10293.77144996, -10293.77498381, -10293.77722711, -10293.77806572 Ry;
+forces 0.0798, 0.0484, 0.0403, 0.0288, 0.0210 Ry/Bohr. Last energy is 0.482 eV below the
+delocalized gate energy. At SCF #5 the spin is concentrated on atom 9 (site moment 0.35 vs next 0.08).
+Restarted 12:58 as relax_pristine_e_sc_seed9_r3 (positions after r2 step 5, built by make_restart_from_last.py).
