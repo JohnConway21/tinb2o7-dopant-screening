@@ -173,3 +173,36 @@ energies -10293.76707905, -10293.77144996, -10293.77498381, -10293.77722711, -10
 forces 0.0798, 0.0484, 0.0403, 0.0288, 0.0210 Ry/Bohr. Last energy is 0.482 eV below the
 delocalized gate energy. At SCF #5 the spin is concentrated on atom 9 (site moment 0.35 vs next 0.08).
 Restarted 12:58 as relax_pristine_e_sc_seed9_r3 (positions after r2 step 5, built by make_restart_from_last.py).
+
+## Pristine 90-atom polaron result (2026-11-21)
+Seeded relaxation stopped by Dev's decision at 09:51 after 14 SCF/BFGS steps (r1 3, r2 5, r3 6):
+energy had stopped changing (last 4 steps -0.0034 eV total, last step -1.7 meV) while the max force
+component crawled 0.0030 -> 0.0026 Ry/Bohr (QE default stop is 0.001). Output kept as
+relax_pristine_e_sc_seed9_r3.out (+ .stopped_final copy); final evaluated geometry in
+pristine_polaron_final_positions.txt.
+
+| Quantity | Value |
+|---|---|
+| E(delocalized, neutral geometry) = gate | -10293.74265555 Ry |
+| E(localized, relaxed), last SCF | -10293.77969580 Ry |
+| **Trapping energy E_trap = E(deloc) - E(loc)** | **0.504 eV** |
+| Max force component at stop | 0.0026 Ry/Bohr (total force 0.0099) |
+
+Localization (last SCF, spin up minus down in the Hubbard d occupation):
+atom 9 (Nb, site 9) **0.818**, next Ti2 0.141, Nb5 0.098. Site moment atom 9 0.365 vs next 0.078.
+In the delocalized gate the largest single-site value was 0.248 (shared over 3 Ti2 copies and
+3 Nb9 copies). So the extra electron forms a **small polaron on Nb site 9**.
+E_trap uses the same definition as before (frozen = charged at neutral geometry, minus relaxed).
+Caveats: stopped above the default force threshold; 2x1x2 mesh (~3x3x3 primitive level) not converged
+in absolute energy, difference convergence untested; reference geometry is the 30-atom neutral relaxed
+structure tiled, not re-relaxed in the supercell.
+
+## Ta runs (started 2026-11-21 09:53, Dev: "Go with Ta, now")
+Built by make_sc_ta.py, identical protocol to pristine, one Ta per 90 atoms:
+- Ta9: Ta on supercell atom 9 (the pristine polaron site), seeded on atom 9.
+- Ta5: Ta on supercell atom 5 (site-5 copy nearest atom 9, 3.89 A), seeded on atom 9 (Nb).
+Each: delocalized reference SCF (scf_TaX_e_sc_spin, forces printed) then seeded relax
+(relax_TaX_e_sc_seed9). Stop rule matching where pristine was stopped: forc_conv_thr 3.0d-3,
+etot_conv_thr 3.0d-4. Running in sequence via run_chain_launchd.sh (log chain_ta.log).
+Note for interpretation: U(Ta-5d)=3.1 eV vs U(Nb-4d)=5.2 eV (from the original setup), so a smaller
+U on Ta by itself disfavours localization on Ta; discuss with mentor.
