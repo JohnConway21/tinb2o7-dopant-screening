@@ -206,3 +206,18 @@ Each: delocalized reference SCF (scf_TaX_e_sc_spin, forces printed) then seeded 
 etot_conv_thr 3.0d-4. Running in sequence via run_chain_launchd.sh (log chain_ta.log).
 Note for interpretation: U(Ta-5d)=3.1 eV vs U(Nb-4d)=5.2 eV (from the original setup), so a smaller
 U on Ta by itself disfavours localization on Ta; discuss with mentor.
+
+## PROBLEM FOUND 2026-11-22: reference geometry not at equilibrium -> 0.504 eV is NOT final
+scf_Ta9_e_sc_spin (charged delocalized reference, Ta on atom 9) converged in 75 iterations,
+E = -10686.84056405 Ry, and printed forces: total 0.20 Ry/Bohr, largest single-atom forces 0.05 Ry/Bohr
+on atoms 5-7 A from Ta, identical in all three supercell copies (e.g. atoms 8/68, 55/85). So the forces
+come from the starting structure itself (30-atom neutral cell relaxed with the old 2x2x2 mesh, tiled 3x),
+not from Ta. Confirmed in the pristine polaron relaxation: atoms 6-9 A from the polaron moved up to
+0.12 A, more than the polaron site's own neighbours (mean 0.05 A).
+Consequence: E(deloc at unrelaxed geometry) - E(loc relaxed) = 0.504 eV also contains the relaxation
+energy of the starting structure. **Treat 0.504 eV as an upper bound, not the trapping energy.**
+Fix (same definition, same parameters): relax the neutral supercell first, compute the delocalized
+reference there, and seed the Ta polarons from their own relaxed neutral geometries.
+pipeline_relaxed_ref.py runs the 8 steps in order (log pipeline.log), started 10:06 via
+run_pipeline_launchd.sh. Ta chain stopped 15 min into relax_Ta9_e_sc_seed9 (partial output kept as
+relax_Ta9_e_sc_seed9.out.killed). scf_Ta9_e_sc_spin.out kept but superseded.
