@@ -31,7 +31,14 @@ def join_pos(head, labels, f, tail):
 def cell_of(s):
     return np.array([[float(x) for x in l.split()] for l in s.split("CELL_PARAMETERS angstrom\n")[1].strip().splitlines()[:3]])
 
+def cur(name):
+    # latest restart of a step: NAME, NAME_r2, NAME_r3 ... (made by make_restart_from_last.py after a power loss)
+    k = 2
+    while os.path.exists(f"{name}_r{k}.in"): k += 1
+    return name if k == 2 else f"{name}_r{k-1}"
+
 def final_positions(name):
+    name = cur(name)
     t = open(name + ".out", errors="ignore").read()
     assert "bfgs converged" in t, name
     blk = t.split("Begin final coordinates")[1].split("End final coordinates")[0]
@@ -75,11 +82,12 @@ def ok(name):
     return ("bfgs converged" in t) if "calculation = 'relax'" in open(name + ".in").read() else ("convergence has been achieved" in t)
 
 def run(name, build):
-    st = ok(name)
-    if st: log(f"skip {name} (done)"); return
-    if st is False: log(f"STOP: {name}.out exists unfinished/failed; restart by hand"); sys.exit(1)
     if not os.path.exists(name + ".in"):
         open(name + ".in", "w").write(build()); log(f"built {name}.in")
+    name = cur(name)
+    st = ok(name)
+    if st: log(f"skip {name} (done)"); return
+    if st is False: log(f"STOP: {name}.out exists unfinished/failed; restart by hand (make_restart_from_last.py {name} <name>_rK)"); sys.exit(1)
     log(f"start {name}")
     with open(name + ".in") as i, open(name + ".out", "w") as o:
         subprocess.run(["mpirun", "-np", "3", "pw.x"], stdin=i, stdout=o, stderr=subprocess.STDOUT)
