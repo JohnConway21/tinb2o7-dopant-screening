@@ -2,3 +2,8 @@ Thu Nov 19 11:25:55 EST 2026 battery 4%: saving relax_pristine_e_sc_seed9_r2.out
 saved 90 atoms to relax_pristine_e_sc_seed9_r2_last_positions.txt
 last energy: !    total energy              =  -10293.77806572 Ry
 last force: Total force =     0.020962     Total SCF correction =     0.000037
+pushed
+Sun Nov 22 19:27:46 EST 2026 battery 4%: saving relax_pristine_neutral_sc.out
+saved 90 atoms to relax_pristine_neutral_sc_last_positions.txt
+last energy: !    total energy              =  -10294.43462422 Ry
+last force: Total force =     0.072488     Total SCF correction =     0.000093
