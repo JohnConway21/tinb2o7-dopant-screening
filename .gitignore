@@ -3,3 +3,5 @@ tmp/
 *.out
 __pycache__/
 .battery_guard_fired
+.battery_guard_fired.exit
+*.EXIT

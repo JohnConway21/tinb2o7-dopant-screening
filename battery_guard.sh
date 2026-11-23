@@ -8,8 +8,17 @@ FLAG=$REPO/.battery_guard_fired
 LOG=$REPO/battery_guard.log
 cd $REPO || exit 0
 b=$(pmset -g batt)
-if ! echo "$b" | grep -q "Battery Power"; then rm -f $FLAG; exit 0; fi
+if ! echo "$b" | grep -q "Battery Power"; then rm -f $FLAG $FLAG.exit; exit 0; fi
 pct=$(echo "$b" | grep -o '[0-9]*%' | head -1 | tr -d '%')
+# At <=10%: ask the running pw.x to stop cleanly (prefix.EXIT). QE finishes its current SCF iteration,
+# writes restart files (charge density, wavefunctions, BFGS history) and exits, so the in-progress step
+# can be resumed with restart_mode='restart' instead of being lost. Done once per discharge.
+if [[ -n $pct && $pct -le 10 && ! -e $FLAG.exit ]] && pgrep -x pw.x >/dev/null; then
+  touch $FLAG.exit
+  run=$(ls -t *.out | head -1); pre=$(grep -o "prefix = '[^']*'" ${run%.out}.in | cut -d"'" -f2)
+  if [[ -n $pre ]]; then touch $REPO/$pre.EXIT $REPO/tmp/$pre.EXIT
+    echo "$(date) battery ${pct}%: requested clean stop of $run (created $pre.EXIT)" >> $LOG; fi
+fi
 [[ -z $pct || $pct -ge 5 || -e $FLAG ]] && exit 0
 touch $FLAG
 out=$(ls -t relax_*.out 2>/dev/null | head -1)
