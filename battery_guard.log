@@ -12,3 +12,9 @@ Mon Nov 23 13:56:32 EST 2026 battery 4%: saving relax_pristine_neutral_sc.out
 saved 90 atoms to relax_pristine_neutral_sc_last_positions.txt
 last energy: !    total energy              =  -10294.43952558 Ry
 last force: Total force =     0.015694     Total SCF correction =     0.000055
+pushed
+Mon Nov 23 14:29:38 EST 2026 battery 10%: requested clean stop of relax_pristine_neutral_sc.out (created pristine_neutral_sc_rlx.EXIT)
+Mon Nov 23 14:55:40 EST 2026 battery 4%: saving relax_pristine_neutral_sc.out
+saved 90 atoms to relax_pristine_neutral_sc_last_positions.txt
+last energy: !    total energy              =  -10294.43989264 Ry
+last force: Total force =     0.015694     Total SCF correction =     0.000055
