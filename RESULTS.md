@@ -232,3 +232,10 @@ max 0.187 A; the three copies relaxed identically (asymmetry 0.0000 A), as they 
 This confirms most of the old 0.504 eV was structural relaxation, not polaron trapping. The corrected
 E_trap comes from step 2 (scf_pristine_e_sc_spin_rlx, started 11:51, 721 electrons) and the existing
 localized energy -10293.77969580 Ry.
+
+### Speed-up (2026-11-24, Dev asked to shorten the timeline)
+Ta seeded relaxations (relax_Ta9_e_sc_seed9_rlx, relax_Ta5_e_sc_seed9_rlx) now start from the converged
+pristine polaron geometry (pristine_polaron_final_positions.txt) with Ta swapped in, instead of the
+0.1 A push from the neutral geometry. Same settings, same stop rule (forc 3e-3, etot 3e-4); only the
+starting guess changes, so fewer BFGS steps are needed (pristine needed 14 from the push). The
+electron is free to leave site 9 if Ta does not bind it. Inputs pre-built so the running pipeline uses them.

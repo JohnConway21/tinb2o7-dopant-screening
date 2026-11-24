@@ -10,7 +10,9 @@
 #   2 scf_pristine_e_sc_spin_rlx     charged delocalized reference at geometry 1 (copy of the gate input)
 #   3 relax_Ta9_neutral_sc           geometry 1 with Ta on atom 9, neutral relax
 #   4 scf_Ta9_e_sc_spin_rlx          charged delocalized reference at geometry 3
-#   5 relax_Ta9_e_sc_seed9_rlx       seeded polaron relax from geometry 3 (same 0.1 A push of atom 9's O)
+#   5 relax_Ta9_e_sc_seed9_rlx       seeded polaron relax. Changed 2026-11-24 to save ~2 days per site:
+#                                    starts from the converged PRISTINE polaron geometry with Ta swapped in
+#                                    (pristine_polaron_final_positions.txt); same settings and stop rule.
 #   6-8 same for Ta5 (Ta on atom 5)
 # The pristine localized endpoint (relax_pristine_e_sc_seed9_r3, E = -10293.77969580 Ry) is reused.
 # Usage: python pipeline_relaxed_ref.py   (normally via run_pipeline_launchd.sh). Log: pipeline.log
@@ -110,8 +112,8 @@ if __name__ == "__main__":
         fX = final_positions(f"relax_{X}_neutral_sc")[1]
         run(f"scf_{X}_e_sc_spin_rlx", lambda: ref(f"scf_{X}_e_sc_spin.in", fX, f"{X}_e_sc_spin", f"{X}_e_sc_spin_rlx"))
         def seeded():
-            s = open(f"relax_{X}_e_sc_seed9.in").read()
-            s = with_positions(f"relax_{X}_e_sc_seed9.in", seed_push(s, fX))
+            L = open("pristine_polaron_final_positions.txt").read().splitlines()[1:91]
+            s = with_positions(f"relax_{X}_e_sc_seed9.in", np.array([[float(x) for x in l.split()[1:4]] for l in L]))
             s = s.replace(f"prefix = '{X}_e_sc_seed9'", f"prefix = '{X}_e_sc_seed9_rlx'"); assert "seed9_rlx" in s; return s
         run(f"relax_{X}_e_sc_seed9_rlx", seeded)
     log("PIPELINE COMPLETE")
