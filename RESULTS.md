@@ -221,3 +221,14 @@ reference there, and seed the Ta polarons from their own relaxed neutral geometr
 pipeline_relaxed_ref.py runs the 8 steps in order (log pipeline.log), started 10:06 via
 run_pipeline_launchd.sh. Ta chain stopped 15 min into relax_Ta9_e_sc_seed9 (partial output kept as
 relax_Ta9_e_sc_seed9.out.killed). scf_Ta9_e_sc_spin.out kept but superseded.
+
+### Step 1 done: neutral pristine supercell relaxed (2026-11-24 11:51)
+relax_pristine_neutral_sc (+ _r2, _r3 resumed after two clean battery stops via prefix.EXIT /
+restart_mode='restart'): bfgs converged, 15 SCF / 14 BFGS steps, QE default thresholds,
+final max force component 0.00099 Ry/Bohr.
+E = -10294.44101131 Ry vs -10294.41624087 Ry for the tiled starting geometry:
+**relaxation energy of the starting structure = 0.337 eV** (per 90-atom cell). Mean atom shift 0.025 A,
+max 0.187 A; the three copies relaxed identically (asymmetry 0.0000 A), as they should with no defect.
+This confirms most of the old 0.504 eV was structural relaxation, not polaron trapping. The corrected
+E_trap comes from step 2 (scf_pristine_e_sc_spin_rlx, started 11:51, 721 electrons) and the existing
+localized energy -10293.77969580 Ry.
