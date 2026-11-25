@@ -239,3 +239,19 @@ pristine polaron geometry (pristine_polaron_final_positions.txt) with Ta swapped
 0.1 A push from the neutral geometry. Same settings, same stop rule (forc 3e-3, etot 3e-4); only the
 starting guess changes, so fewer BFGS steps are needed (pristine needed 14 from the push). The
 electron is free to leave site 9 if Ta does not bind it. Inputs pre-built so the running pipeline uses them.
+
+## CORRECTED pristine trapping energy (2026-11-25 02:00)
+Step 2 scf_pristine_e_sc_spin_rlx (+ _r2 after a clean battery stop): converged (42 iterations in r2),
+721 electrons, charged delocalized reference at the relaxed neutral geometry.
+E = -10293.76977476 Ry (0.369 eV below the old gate at the unrelaxed geometry).
+Electron delocalized as expected: largest spin d-occupations 0.226 (3 Ti2 copies) and 0.173 (3 Nb9 copies).
+
+| Quantity | Value |
+|---|---|
+| E(delocalized, relaxed neutral geometry) | -10293.76977476 Ry |
+| E(localized polaron on Nb9, relaxed) | -10293.77969580 Ry |
+| **Pristine E_trap (corrected)** | **0.135 eV** |
+
+Caveats: the localized run was stopped at max force 0.0026 Ry/Bohr with the energy still drifting
+~2 meV/step, so E_trap may be slightly underestimated (order 0.01 eV). Same k-mesh caveat as before.
+The old 0.504 eV is superseded. The Ta runs use this same reference protocol.
