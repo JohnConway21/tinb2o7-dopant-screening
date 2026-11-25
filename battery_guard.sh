@@ -8,7 +8,23 @@ FLAG=$REPO/.battery_guard_fired
 LOG=$REPO/battery_guard.log
 cd $REPO || exit 0
 b=$(pmset -g batt)
-if ! echo "$b" | grep -q "Battery Power"; then rm -f $FLAG $FLAG.exit; exit 0; fi
+if ! echo "$b" | grep -q "Battery Power"; then
+  rm -f $FLAG $FLAG.exit
+  # On AC: auto-resume a pipeline step that was stopped cleanly by the low-battery EXIT request.
+  last=$(tail -1 pipeline.log 2>/dev/null)
+  if ! pgrep -x pw.x >/dev/null && [[ $last == *"STOP: "*" failed its check"* ]]; then
+    x=$(echo "$last" | sed -E 's/.*STOP: ([^ ]+) failed.*/\1/')
+    if [[ -f $x.out ]] && grep -q "Program stopped by user request" $x.out; then
+      base=$(echo $x | sed -E 's/_r[0-9]+$//'); k=2; while [[ -e ${base}_r$k.in ]]; do k=$((k+1)); done; new=${base}_r$k
+      if grep -q "restart_mode" $x.in; then cp $x.in $new.in
+      else sed -E "s/(calculation = '[a-z]+',)/\1\n  restart_mode = 'restart',/" $x.in > $new.in; fi
+      pre=$(grep -o "prefix = '[^']*'" $new.in | cut -d"'" -f2); rm -f $REPO/$pre.EXIT $REPO/tmp/$pre.EXIT
+      echo "$(date) on AC: auto-resuming $x as $new" >> $LOG
+      $REPO/run_pipeline_launchd.sh >> $LOG 2>&1
+    fi
+  fi
+  exit 0
+fi
 pct=$(echo "$b" | grep -o '[0-9]*%' | head -1 | tr -d '%')
 # At <=10%: ask the running pw.x to stop cleanly (prefix.EXIT). QE finishes its current SCF iteration,
 # writes restart files (charge density, wavefunctions, BFGS history) and exits, so the in-progress step
