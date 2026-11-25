@@ -8,7 +8,14 @@ FLAG=$REPO/.battery_guard_fired
 LOG=$REPO/battery_guard.log
 cd $REPO || exit 0
 b=$(pmset -g batt)
-if ! echo "$b" | grep -q "Battery Power"; then
+pct=$(echo "$b" | grep -o '[0-9]*%' | head -1 | tr -d '%')
+# A weak charger can show "AC attached; not charging" while the battery still drains (2026-11-25: 45 W
+# adapter, resumed at 8% and kept draining). Count that as safe only when charge >= 30% (e.g. the macOS
+# 80% charge hold); otherwise treat it like battery power: no auto-resume, clean stop at <=10%.
+safe=1
+echo "$b" | grep -q "Battery Power" && safe=0
+echo "$b" | grep -q "not charging" && [[ -n $pct && $pct -lt 30 ]] && safe=0
+if [[ $safe == 1 ]]; then
   rm -f $FLAG $FLAG.exit
   # On AC: auto-resume a pipeline step that was stopped cleanly by the low-battery EXIT request.
   last=$(tail -1 pipeline.log 2>/dev/null)
@@ -25,7 +32,6 @@ if ! echo "$b" | grep -q "Battery Power"; then
   fi
   exit 0
 fi
-pct=$(echo "$b" | grep -o '[0-9]*%' | head -1 | tr -d '%')
 # At <=10%: ask the running pw.x to stop cleanly (prefix.EXIT). QE finishes its current SCF iteration,
 # writes restart files (charge density, wavefunctions, BFGS history) and exits, so the in-progress step
 # can be resumed with restart_mode='restart' instead of being lost. Done once per discharge.
