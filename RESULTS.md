@@ -255,3 +255,11 @@ Electron delocalized as expected: largest spin d-occupations 0.226 (3 Ti2 copies
 Caveats: the localized run was stopped at max force 0.0026 Ry/Bohr with the energy still drifting
 ~2 meV/step, so E_trap may be slightly underestimated (order 0.01 eV). Same k-mesh caveat as before.
 The old 0.504 eV is superseded. The Ta runs use this same reference protocol.
+
+## Step 3 done: Ta9 neutral supercell relaxed (2026-11-26 19:35)
+relax_Ta9_neutral_sc (+ _r2, _r3, _r4 after three clean low-battery stops, each resumed with
+restart_mode='restart'): bfgs converged in 8 scf cycles / 7 bfgs steps, JOB DONE, 720 electrons,
+largest force component 0.00098 Ry/Bohr (atom 22), total force 0.0037.
+Final energy -10687.54183792 Ry. Relaxation from the pristine relaxed geometry with Ta swapped onto
+atom 9: 0.0013 Ry = 0.017 eV (Ta barely distorts the lattice, as expected for a Nb-sized ion).
+Step 4 scf_Ta9_e_sc_spin_rlx (charged delocalized reference, 721 electrons) started 19:35.

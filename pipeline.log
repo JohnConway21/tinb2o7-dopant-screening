@@ -1,0 +1,30 @@
+Sun Nov 22 10:06:56 built relax_pristine_neutral_sc.in
+Sun Nov 22 10:06:56 start relax_pristine_neutral_sc
+Mon Nov 23 15:05:37 STOP: relax_pristine_neutral_sc failed its check
+Mon Nov 23 15:49:45 start relax_pristine_neutral_sc_r2
+Mon Nov 23 17:05:45 STOP: relax_pristine_neutral_sc_r2 failed its check
+Mon Nov 23 18:43:17 start relax_pristine_neutral_sc_r3
+Tue Nov 24 11:51:54 done relax_pristine_neutral_sc_r3: !    total energy              =  -10294.44101131 Ry
+Tue Nov 24 11:51:54 built scf_pristine_e_sc_spin_rlx.in
+Tue Nov 24 11:51:54 start scf_pristine_e_sc_spin_rlx
+Tue Nov 24 18:49:07 STOP: scf_pristine_e_sc_spin_rlx failed its check
+Tue Nov 24 20:41:34 skip relax_pristine_neutral_sc_r3 (done)
+Tue Nov 24 20:41:34 start scf_pristine_e_sc_spin_rlx_r2
+Wed Nov 25 03:45:18 done scf_pristine_e_sc_spin_rlx_r2: !    total energy              =  -10293.76977476 Ry
+Wed Nov 25 03:45:18 built relax_Ta9_neutral_sc.in
+Wed Nov 25 03:45:18 start relax_Ta9_neutral_sc
+Wed Nov 25 06:18:37 STOP: relax_Ta9_neutral_sc failed its check
+Wed Nov 25 09:56:31 skip relax_pristine_neutral_sc_r3 (done)
+Wed Nov 25 09:56:31 skip scf_pristine_e_sc_spin_rlx_r2 (done)
+Wed Nov 25 09:56:31 start relax_Ta9_neutral_sc_r2
+Wed Nov 25 11:03:28 STOP: relax_Ta9_neutral_sc_r2 failed its check
+Wed Nov 25 11:17:40 skip relax_pristine_neutral_sc_r3 (done)
+Wed Nov 25 11:17:40 skip scf_pristine_e_sc_spin_rlx_r2 (done)
+Wed Nov 25 11:17:40 start relax_Ta9_neutral_sc_r3
+Wed Nov 25 16:57:53 STOP: relax_Ta9_neutral_sc_r3 failed its check
+Thu Nov 26 01:27:59 skip relax_pristine_neutral_sc_r3 (done)
+Thu Nov 26 01:27:59 skip scf_pristine_e_sc_spin_rlx_r2 (done)
+Thu Nov 26 01:27:59 start relax_Ta9_neutral_sc_r4
+Thu Nov 26 19:34:55 done relax_Ta9_neutral_sc_r4: !    total energy              =  -10687.54183792 Ry
+Thu Nov 26 19:34:55 built scf_Ta9_e_sc_spin_rlx.in
+Thu Nov 26 19:34:55 start scf_Ta9_e_sc_spin_rlx
