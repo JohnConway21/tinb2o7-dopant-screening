@@ -263,3 +263,10 @@ largest force component 0.00098 Ry/Bohr (atom 22), total force 0.0037.
 Final energy -10687.54183792 Ry. Relaxation from the pristine relaxed geometry with Ta swapped onto
 atom 9: 0.0013 Ry = 0.017 eV (Ta barely distorts the lattice, as expected for a Nb-sized ion).
 Step 4 scf_Ta9_e_sc_spin_rlx (charged delocalized reference, 721 electrons) started 19:35.
+
+### Step 4 restart with mixing_beta 0.1 (2026-11-27 11:04, approved by Dev)
+scf_Ta9_e_sc_spin_rlx stalled: scf accuracy flat at ~2.5e-6 Ry for ~16 iterations (37-53) while the total
+energy was already stable to ~1e-5 Ry (abs. magnetization 2.06, like the pristine reference's 2.17 =
+delocalized). To avoid waiting up to ~18 h for the 100-iteration limit, it was stopped cleanly and resumed
+as scf_Ta9_e_sc_spin_rlx_r2 (restart_mode='restart', density/wavefunctions read from file) with
+mixing_beta 0.3 -> 0.1. Convergence aid only; conv_thr 1e-8 and all physical settings unchanged.

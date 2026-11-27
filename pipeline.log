@@ -28,3 +28,8 @@ Thu Nov 26 01:27:59 start relax_Ta9_neutral_sc_r4
 Thu Nov 26 19:34:55 done relax_Ta9_neutral_sc_r4: !    total energy              =  -10687.54183792 Ry
 Thu Nov 26 19:34:55 built scf_Ta9_e_sc_spin_rlx.in
 Thu Nov 26 19:34:55 start scf_Ta9_e_sc_spin_rlx
+Fri Nov 27 11:04:07 STOP: scf_Ta9_e_sc_spin_rlx failed its check
+Fri Nov 27 11:04:21 skip relax_pristine_neutral_sc_r3 (done)
+Fri Nov 27 11:04:21 skip scf_pristine_e_sc_spin_rlx_r2 (done)
+Fri Nov 27 11:04:21 skip relax_Ta9_neutral_sc_r4 (done)
+Fri Nov 27 11:04:21 start scf_Ta9_e_sc_spin_rlx_r2
