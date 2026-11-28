@@ -1,0 +1,3 @@
+Accepted 2026-11-27 19:00 with Dev's approval. SCF stalled at estimated accuracy ~1e-6 Ry (conv_thr 1e-8)
+for ~35 iterations across beta 0.3 and 0.1; total energy stable to ~5e-6 Ry (<0.1 meV).
+Energy used (last SCF iteration): -10686.86886721 Ry. 721 electrons, total magnetization 1.00.

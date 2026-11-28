@@ -270,3 +270,19 @@ energy was already stable to ~1e-5 Ry (abs. magnetization 2.06, like the pristin
 delocalized). To avoid waiting up to ~18 h for the 100-iteration limit, it was stopped cleanly and resumed
 as scf_Ta9_e_sc_spin_rlx_r2 (restart_mode='restart', density/wavefunctions read from file) with
 mixing_beta 0.3 -> 0.1. Convergence aid only; conv_thr 1e-8 and all physical settings unchanged.
+
+## Step 4 done (accepted): Ta9 charged delocalized reference (2026-11-27 19:00)
+scf_Ta9_e_sc_spin_rlx_r2 (beta 0.1) stalled again at estimated accuracy ~1e-6 Ry (~35 iterations flat in
+total). Dev approved stopping it and using the settled energy (marker file scf_Ta9_e_sc_spin_rlx_r2.accepted;
+pipeline ok() honours it). E = -10686.86886721 Ry, stable to ~5e-6 Ry (<0.1 meV) over the last ~35
+iterations, i.e. >1000x below the size of E_trap. 721 electrons, total magnetization 1.00, abs 2.06.
+Same rule will be used for Ta5 if its charged reference stalls the same way.
+
+Spin distribution (Tr[ns] up-down): electron is spread, not localized, but it AVOIDS the Ta-containing copy:
+Ti62 0.361, Ti32 0.343, Ti2 0.139, Nb69 0.138, Nb39 0.134, ... Ta9 0.046. In pristine the three copies were
+equal (Ti 0.226 x3, Nb9-type 0.173 x3). So Ta pushes the extra electron away from its own region; the
+near-degenerate choice between copies probably explains the SCF sloshing/stall. First hint that Ta at site 9
+does not attract the electron; the seeded relaxation will show whether a polaron still forms there.
+
+Step 5 relax_Ta9_e_sc_seed9_rlx started 19:00 from the pristine polaron geometry with Ta on atom 9
+(verified identical coordinates), 721 electrons.

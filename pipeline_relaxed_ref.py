@@ -79,6 +79,8 @@ def neutral_relax_input(f, prefix, ta_atom=None):
 def ok(name):
     p = name + ".out"
     if not os.path.exists(p): return None
+    # NAME.accepted: SCF stalled with the energy settled; Dev approved using its last energy (2026-11-27).
+    if os.path.exists(name + ".accepted"): return True
     t = open(p, errors="ignore").read()
     if "JOB DONE" not in t: return False
     return ("bfgs converged" in t) if "calculation = 'relax'" in open(name + ".in").read() else ("convergence has been achieved" in t)

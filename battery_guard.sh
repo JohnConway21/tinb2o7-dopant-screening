@@ -21,7 +21,7 @@ if [[ $safe == 1 ]]; then
   last=$(tail -1 pipeline.log 2>/dev/null)
   if ! pgrep -x pw.x >/dev/null && [[ $last == *"STOP: "*" failed its check"* ]]; then
     x=$(echo "$last" | sed -E 's/.*STOP: ([^ ]+) failed.*/\1/')
-    if [[ -f $x.out ]] && grep -q "Program stopped by user request" $x.out; then
+    if [[ -f $x.out && ! -e $x.accepted ]] && grep -q "Program stopped by user request" $x.out; then
       base=$(echo $x | sed -E 's/_r[0-9]+$//'); k=2; while [[ -e ${base}_r$k.in ]]; do k=$((k+1)); done; new=${base}_r$k
       if grep -q "restart_mode" $x.in; then cp $x.in $new.in
       else sed -E "s/(calculation = '[a-z]+',)/\1\n  restart_mode = 'restart',/" $x.in > $new.in; fi
